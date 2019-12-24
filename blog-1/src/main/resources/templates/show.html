@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="general::header"></head>
+
+<body>
+
+    <div th:replace="navBar::nav"></div>
+    <div class="container" style="background-color:black;height:50px">
+        <br/>
+        <br/>
+        <br/>
+        <h1 th:text="${blog.title}"></h1>
+        <p th:inline="text" style="color:cadetblue">Posted By
+            <span th:text="${writer}"></span>
+            <span>On</span>
+            <span th:text="${blog.createdDate}"></span>
+        </p>
+        <hr />
+        <!-- <div align="center"> -->
+
+        <!-- id="preview"  -->
+        <div class="fr-view">
+            <div style="font-size: large;" th:utext="${blog.content}" class="fr-view"></div>
+        </div>
+        <hr />
+
+        <!-- <div class="container" > -->
+        <div sec:authorize="isAuthenticated()">
+            <div class="btn-group" role="group" data-toggle="tooltip" aria-describedby="tooltip481055">
+                <button id="likeBtn" class="dw-upvote btn btn-secondary" style="background-color: #007bff;">
+                    <i class="far fa-fw fa-thumbs-up"></i><span id="likeCount" th:text="${blog.totalPostLike}">
+								</span>
+                </button>
+                <button id="dislikeBtn" class="dw-downvote btn btn-secondary" style="background-color: #007bff;">
+                    <i class="far fa-fw fa-thumbs-down"></i><span id="dislikeCount" th:text="${blog.totalPostDislike}"></span>
+                </button>
+                <!-- </div>
+						<div> -->
+                <button type="button" class="commentBtn btn " th:data-id="${blog.id}" th:id="${'btn'+blog.id}" style="color: #fff; background-color: #007bff; border-color: #007bff;width:55px">
+                    <i class="far fa-fw fa-comment"></i>
+                </button>
+            </div>
+            <form th:action="@{/savecomment}" class="form" th:id="${'form'+blog.id}" method="post">
+                <input th:name="blogId" th:value="${blog.id}" type="hidden">
+                <textarea id="editor" type="text" th:name="comment" th:text="${react.comment}" />
+
+                <button class="btn btn-primary" type="submit">save</button>
+
+            </form>
+            <!-- <div class="container"> -->
+            <br/><br/><br/>
+            <h>Comments</h>
+            <hr />
+            <div class="row mt-1">
+                <div class="col-md-9 offset-md-1 col-sm-6 offset-sm-3 col-12 comments-main pt-2 mb-2 rounded" th:each="reaction : ${reaction}" th:if="${blog.id == reaction.id }">
+
+                    <div class="row comments mb-2">
+                        <div class="comment rounded mb-2">
+                            <h4 th:text="${reaction.userName}"></h4>
+                            <div  class="fr-view" th:utext="${reaction.comment}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <!-- </div> -->
+
+        <script th:inline="javascript">
+            var editor = new FroalaEditor('#editor');
+            $(".commentBtn").click(function() {
+
+                var id = $(this).data("id");
+                $("#form" + id).toggle();
+
+            });
+
+            $(document).ready(function() {
+                $("#likeBtn").click(function(e) {
+                    console.log("checking");
+                    e.preventDefault();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/userreaction",
+                        data: {
+                            blogId: [[${blog.id}]],
+                            chkval: "1"
+                        },
+                        success: function(result) {
+                            console.log("res >>> " + result);
+                            $('#likeCount').text(result);
+                        },
+                        failure: function(result) {
+                            console.log("failure >>> " + result);
+                        }
+                    });
+                });
+            });
+            $(document).ready(function() {
+                $("#dislikeBtn").click(function(e) {
+                    console.log("checking");
+                    e.preventDefault();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/userreaction",
+                        data: {
+                        	blogId: [[${blog.id}]],
+                            chkval: "0"
+                        },
+                        success: function(result) {
+                            console.log("success >>> " + result);
+                            $('#dislikeCount').text(result);
+                        },
+                        failure: function(result) {
+                            console.log("failure >>> " + result);
+
+                        }
+                    });
+                });
+            });
+        </script>
+</body>
+
+</html>

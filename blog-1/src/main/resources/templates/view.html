@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="general :: header">
+<!-- <title th:include=":: #pageTitle">view</title> -->
+</head>
+<!-- <style th:include="general::style"></style> -->
+<body>
+	<div th:replace="navBar::nav"></div>
+	<div class="container" style="background-color: black; height: 50px;">
+		<br /> <br />
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div align="center" class="post-meta">
+				<br/>
+					<a th:href="@{'/create'}">Create New Post</a> <br /> <br />
+				</div>
+				<div class="post-preview" th:each="blog : ${blogList}">
+					<a th:href="@{'/show/'+${blog.id}}">
+						<h2 class="post-title" th:text="${blog.title}"></h2>
+					</a>
+					<p th:inline="text" class="post-meta">
+						Posted By <span th:text="${blog.userName}"></span> <span>On</span>
+						<span th:text="${blog.createdDate}"></span>
+						<h> <a th:href="@{'/edit/' + ${blog.id}}">Edit</a> <a
+							th:href="@{'/delete/' + ${blog.id}}">Delete</a> <a
+							th:href="@{'/show/' + ${blog.id}}">Show</a></h>
+					</p>
+
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

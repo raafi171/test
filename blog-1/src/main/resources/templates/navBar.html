@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment= "nav">
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" >
+    </div>
+    <div style="position: absolute; right: 100px;">
+    <form class="form-inline my-2 my-lg-0" th:action = "@{'/search'}" method="post" >
+      <input class="form-control mr-sm-2" type="text" th:name = "title" required="required" placeholder="Search" aria-label="Search" >
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    </div>
+    
+  </div> -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{'/home'}">All Blogs</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{'/blog'}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{'/about'}">About</a>
+          </li>
+          <li class="nav-item">
+          	<a class="nav-link" th:href="@{'/myblogs'}">My Post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{'/contact'}">Contact</a>
+          </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+          	<a class="nav-link" th:href="@{'/logout'}">Log Out</a>
+          </li>
+          <li class="nav-item" sec:authorize="!isAuthenticated()">
+          	<a class="nav-link" th:href="@{'/login'}">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- </nav> -->
+<!-- <style th:replace="general::style"></style> -->
+</div>
+</body>
+</html> 

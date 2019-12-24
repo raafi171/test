@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="general :: header"></head>
+<body>
+	<div th:replace="navBar::nav"></div>
+	<div class="container" style="background-color: black; height: 50px">
+
+		<br />
+		<br />
+		<div th:if="${message != null}" th:text="${message}"></div>
+		<form th:action="@{'/update/'+${blog.id}}" method="post">
+			<br />
+			<div class="mb-2">Blog Title</div>
+			<div>
+				<input type="text" th:name="title" class="form-control"
+					th:value="${blog.title}">
+			</div>
+			<br />
+			<div class="mb-2">Blog Content</div>
+			<div>
+				<textarea id="blogTextEditor" type="text" th:name="content"
+					th:text="${blog.content}" />
+			</div>
+			<br />
+			<div colspan="2">
+				<button class="btn btn-primary" type="submit">save</button>
+			</div>
+		</form>
+
+	</div>
+	<script>
+		var editor = new FroalaEditor('#blogTextEditor', {
+			pasteAllowedStyleProps : [ 'font-family', 'font-size' ]
+		});
+	</script>
+</body>
+</html>
+

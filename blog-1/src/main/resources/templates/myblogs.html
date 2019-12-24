@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="general::header"></head>
+<body>
+	<div th:replace="navBar::nav"></div>
+	<header class="masthead" style="background-image: url('/bg-post.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="site-heading">
+						<h1>My Blogs</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-08 col-md-10 mx-auto">
+				<div class="post-preview" th:each="blogModel : ${blog}">
+					<a th:href="@{'/show/'+${blogModel.id}}">
+						<h2 class="post-title" th:text=${blogModel.title}></h2>
+					</a>
+					<div class="post-meta">
+						<h>
+						<a th:href="@{'/edit/' + ${blogModel.id}}">Edit</a> <a
+							th:href="@{'/delete/' + ${blogModel.id}}">Delete</a> <a
+							th:href="@{'/show/' + ${blogModel.id}}">Show</a></h>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
