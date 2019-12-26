@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="general::header"></head>
+
+<body >
+	
+	<div th:replace="navBar::nav"></div>
+
+  <header class="masthead" style="background-image: url('home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Clean Blog</h1>
+            <!-- <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="post-preview" th:each="blog : ${bloglist}">
+					<a th:href="@{'/show/'+${blog.id}}">
+						<h2 class="post-title" th:text="${blog.title}"></h2> 
+					</a>
+					<p th:inline="text" class="post-meta"> Posted By
+						<span  th:text = "${blog.userName}"></span>
+						<span>On</span>
+						<span th:text = "${blog.createdDate}"></span>
+					</p>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

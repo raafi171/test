@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="general :: header">
+<meta charset="UTF-8">
+<title>ID</title>
+</head>
+<body>
+	<div th:replace="navBar::nav"></div>
+	
+	<div class="container">
+		<div align="center">
+			<h1>SHOW ID</h1>
+			<br />
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>User ID</th>
+						<th>Blog Title</th>
+						<th>Post</th>
+						<!-- <th>Action</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="blogList :${blogList}">
+						<td th:text="${blogList.id}">User ID</td>
+						<td th:text="${blogList.title}">Blog Title</td>
+						<td th:utext="${blogList.content}" class="fr-view">Blog Content</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
